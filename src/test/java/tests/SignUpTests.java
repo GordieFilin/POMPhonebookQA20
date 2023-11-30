@@ -31,4 +31,29 @@ public class SignUpTests extends AppiumConfig {
                         .build())
                 .clickRegBtnNegative().validateErrorTitleAlertCorrect());
     }
+
+    @Test
+    public void negativeRegWrongEmail() {
+        Assert.assertTrue(new SplashPage(driver)
+                .goToAuthPage()
+                .reg(UserDTO
+                        .builder()
+                        .email("1A")
+                        .password("123456Aa")
+                        .build())
+                .clickRegBtnNegative().validateErrorTitleAlertCorrect());
+    }
+
+    @Test
+    public void negativeRegWrongPasswordNoDigits() {
+        String email = randomUtils.generateEmail(7);
+        Assert.assertTrue(new SplashPage(driver)
+                .goToAuthPage()
+                .reg(UserDTO
+                        .builder()
+                        .email(email)
+                        .password("qwertyAa")
+                        .build())
+                .clickRegBtnNegative().validateErrorTitleAlertCorrect());
+    }
 }
